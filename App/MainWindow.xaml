@@ -1,0 +1,87 @@
+﻿<Window x:Class="App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:App"
+        mc:Ignorable="d"
+        Title="Расчет температуры вулканизации" Height="480" Width="854">
+    <Window.Resources>
+
+
+        <Style x:Key="RoundedPanelStyle" TargetType="{x:Type StackPanel}">
+            <Setter Property="DataContext">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+
+                        <Border CornerRadius="6" Background="LightGray" BorderThickness="2" Padding="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch" Visibility="Hidden"/>
+
+        <Grid Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="197*"/>
+                <ColumnDefinition Width="198*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Продолжительность вулканизации, сек" VerticalAlignment="Top" TextAlignment="Center" Margin="10,10,10,0" Height="16" Grid.ColumnSpan="2"/>
+            <TextBlock Text="Температура вулканизации на границах, град" Margin="10,56,10,0" Height="16" VerticalAlignment="Top" TextAlignment="Center" Grid.ColumnSpan="2"/>
+            <TextBlock Text="Правая граница:" Margin="0,78,107,0" Height="16" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Right" Width="91"/>
+            <TextBlock Text="Левая граница:" Margin="10,78,0,0" Height="16" TextAlignment="Left" HorizontalAlignment="Left" Width="85" VerticalAlignment="Top"/>
+            <TextBlock Text="Данные по слоям" Margin="10,100,10,0" Height="17" VerticalAlignment="Top" Grid.ColumnSpan="2" TextAlignment="Center"/>
+            <TextBlock Text="Количество слоев:" Margin="10,122,0,0" HorizontalAlignment="Left" Width="104" Height="16" VerticalAlignment="Top"/>
+
+            <TextBox Name="TextBoxTime" TextAlignment="Left" Margin="10,31,10,0" Height="20" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+            <TextBox Name="TextBoxTempLeft" Margin="100,78,0,0" Height="17" VerticalAlignment="Top" HorizontalAlignment="Left" Width="85"/>
+            <TextBox Name="TextBoxTempRight" Margin="0,78,10,0" Grid.Column="1" Height="17" VerticalAlignment="Top" HorizontalAlignment="Right" Width="92"/>
+            <TextBox Name="TextBoxNumberOfLayers" Margin="119,120,0,0" HorizontalAlignment="Left" Width="30" Height="19" VerticalAlignment="Top" RenderTransformOrigin="4.033,0.5"/>
+
+            <Button Margin="10,0,10,10" Grid.ColumnSpan="2" Content="Произвести расчет" Height="30" VerticalAlignment="Bottom" Click="Button_Click"/>
+            <Button Content="Добавить" Margin="154,120,0,0" Grid.ColumnSpan="2" RenderTransformOrigin="0.517,0.053" Click="Button_Click_1" Height="19" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58"/>
+
+            <ScrollViewer Margin="10,144,10,45" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Horizontal" Width="Auto">
+                    <Border CornerRadius="6" Background="LightGray" BorderThickness="2" Padding="8">
+                        <StackPanel Name="LambdaPanel" HorizontalAlignment="Left" Width="180">
+                            <TextBlock Text="Теплопроводность" Height="17" TextAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border CornerRadius="6" Background="LightGray" BorderThickness="2" Padding="8">
+                        <StackPanel Name="HeatCapacityPanel" Width="178">
+                            <TextBlock Text="Теплоемкость" TextAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                    <Border CornerRadius="6" Background="LightGray" BorderThickness="2" Padding="8">
+                        <StackPanel Name="ThicknessPanel" Width="178">
+                            <TextBlock Text="Толщина" ToolTip="Единица измерения в метрах" TextAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+
+            <TextBlock Grid.Column="1" Margin="19,122,0,0" TextWrapping="Wrap" Text="Общее кол-во слоев:" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="118"/>
+            <TextBlock Grid.Column="1" Name="TextBlockCurrentLayers" Margin="141,123,0,0" TextWrapping="Wrap" Text="0" MinWidth="6" Height="16" VerticalAlignment="Top" HorizontalAlignment="Left" Width="48"/>
+        </Grid>
+        <TextBlock Grid.Column="2" Name="TestBlock" HorizontalAlignment="Left" Margin="100,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="68" Width="237"/>
+        <Button Grid.Column="2" Content="Button" HorizontalAlignment="Left" Margin="130,178,0,0" VerticalAlignment="Top" Height="92" Width="208" Click="Button_Click_2"/>
+        <ProgressBar Grid.Column="2" Name="Progress" Margin="144,0,10,10" Maximum="4999" Height="25" VerticalAlignment="Bottom"/>
+        <TextBlock Grid.Column="2" Margin="28,0,286,10" TextWrapping="Wrap" Text="Прогресс решения:" FontWeight="Normal" FontStyle="Normal" TextDecorations="{x:Null}" Height="25" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>
